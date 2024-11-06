@@ -1,15 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using StoryPromptMVC.Models.Prompt;
 using StoryPromptMVC.Models.User;
 using System.Text;
 
 namespace StoryPromptMVC.Controllers
 {
-    public class UserController : Controller
+    public class PromptController : Controller
     {
-        private readonly string baseAdress = "http://localhost:5173/api/user";
+        private readonly string baseAdress = "http://localhost:5173/api/Prompt";
         private readonly HttpClient _client;
-        public UserController(HttpClient httpClient)
+        public PromptController(HttpClient httpClient)
         {
             _client = new HttpClient();
         }
@@ -19,32 +20,32 @@ namespace StoryPromptMVC.Controllers
             return View();
         }
 
-        public async Task<IActionResult> AdminUserHandler()
+        public async Task<IActionResult> AdminPromptHandler()
         {
             var response = await _client.GetAsync(baseAdress);
             var content = await response.Content.ReadAsStringAsync();
-            var users = JsonConvert.DeserializeObject<List<UserVM>>(content);
+            var prompts = JsonConvert.DeserializeObject<List<PromptVM>>(content);
 
-            return View(users);
+            return View(prompts);
         }
 
-        public IActionResult CreateUser()
+        public IActionResult CreatePrompt()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(UserVM user)
+        public async Task<IActionResult> CreatePrompt(PromptVM prompt)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var json = JsonConvert.SerializeObject(user);
+            var json = JsonConvert.SerializeObject(prompt);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(baseAdress, content);
-            
-            if(!response.IsSuccessStatusCode)
+
+            if (!response.IsSuccessStatusCode)
             {
                 return BadRequest();
             }
@@ -53,15 +54,15 @@ namespace StoryPromptMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(string userId)
+        public async Task<IActionResult> DeletePrompt(int promptId)
         {
-            if(userId == null)
+            if (promptId == null)
             {
                 return BadRequest(ModelState);
             }
 
-            var response = await _client.DeleteAsync($"{baseAdress}/{userId}");
-            if(!response.IsSuccessStatusCode)
+            var response = await _client.DeleteAsync($"{baseAdress}/{promptId}");
+            if (!response.IsSuccessStatusCode)
             {
                 return BadRequest(ModelState);
             }
@@ -69,27 +70,27 @@ namespace StoryPromptMVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> EditUser(string userId)
+        public async Task<IActionResult> EditPrompt(int promptId)
         {
-            var response = await _client.GetAsync($"{baseAdress}/{userId}");
+            var response = await _client.GetAsync($"{baseAdress}/{promptId}");
             var json = await response.Content.ReadAsStringAsync();
-            var user = JsonConvert.DeserializeObject<UserVM>(json);
+            var prompt = JsonConvert.DeserializeObject<PromptVM>(json);
 
-            return View(user);
+            return View(prompt);
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(UserVM userToEdit)
+        public async Task<IActionResult> EditPrompt(PromptVM promptToEdit)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
 
-            var json = JsonConvert.SerializeObject(userToEdit);
+            var json = JsonConvert.SerializeObject(promptToEdit);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"{baseAdress}/{userToEdit.id}", content);
-            if(!response.IsSuccessStatusCode)
+            var response = await _client.PutAsync($"{baseAdress}/{promptToEdit.id}", content);
+            if (!response.IsSuccessStatusCode)
             {
                 return BadRequest();
             }
@@ -99,3 +100,4 @@ namespace StoryPromptMVC.Controllers
 
     }
 }
+
