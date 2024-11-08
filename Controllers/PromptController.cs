@@ -10,7 +10,7 @@ namespace StoryPromptMVC.Controllers
     {
         private readonly string baseAdress = "http://localhost:5173/api/Prompt";
         private readonly HttpClient _client;
-        public PromptController(HttpClient httpClient)
+        public PromptController()
         {
             _client = new HttpClient();
         }

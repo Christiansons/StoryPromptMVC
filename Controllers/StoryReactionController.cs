@@ -9,7 +9,7 @@ namespace StoryPromptMVC.Controllers
     {
         private readonly string baseAdress = "http://localhost:5173/api/StoryReaction";
         private readonly HttpClient _client;
-        public StoryReactionController(HttpClient httpClient)
+        public StoryReactionController()
         {
             _client = new HttpClient();
         }

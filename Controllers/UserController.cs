@@ -9,7 +9,7 @@ namespace StoryPromptMVC.Controllers
     {
         private readonly string baseAdress = "http://localhost:5173/api/user";
         private readonly HttpClient _client;
-        public UserController(HttpClient httpClient)
+        public UserController()
         {
             _client = new HttpClient();
         }
@@ -38,7 +38,7 @@ namespace StoryPromptMVC.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("model e fel");
             }
             var json = JsonConvert.SerializeObject(user);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -46,10 +46,10 @@ namespace StoryPromptMVC.Controllers
             
             if(!response.IsSuccessStatusCode)
             {
-                return BadRequest();
+                return BadRequest("fel med api");
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminUserHandler");
         }
 
         [HttpPost]
