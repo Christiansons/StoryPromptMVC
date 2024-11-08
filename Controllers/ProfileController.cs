@@ -6,7 +6,7 @@ namespace StoryPromptMVC.Controllers
     {
         private readonly string baseAdress = "http://localhost:5173/api/Profile";
         private readonly HttpClient _client;
-        public ProfileController(HttpClient httpClient)
+        public ProfileController()
         {
             _client = new HttpClient();
         }
