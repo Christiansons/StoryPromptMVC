@@ -10,4 +10,11 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\StoryReaction\" />
+    <Folder Include="Views\PromptReaction\" />
+    <Folder Include="Views\Profile\" />
+    <Folder Include="Views\Prompt\" />
+  </ItemGroup>
+
 </Project>

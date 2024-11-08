@@ -1,0 +1,29 @@
+﻿@using StoryPromptMVC.Models.User
+@model List<UserVM>
+
+<h3>User admin page</h3>
+<a class="btn btn-success" asp-action="CreateUser" asp-controller="user">Create new user</a>
+@foreach (var user in Model)
+{
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title">
+				User
+			</h5>
+			<p class="card-text">
+				@user.userName
+			</p>
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">User ID: @user.id</li>
+			<li class="list-group-item">Created Date: @user.email</li>
+			<li class="list-group-item">Password: @user.password</li>
+		</ul>
+		<div class="card-body">
+			<a class="btn btn-light" asp-action="EditUser" asp-controller="User" asp-route-userId=@user.id>Edit story</a>
+			<form asp-action="DeleteUser" asp-controller="User" asp-route-userId="@user.id" method="post" style="display:inline;">
+				<button type="submit" class="btn btn-danger">Delete User</button>
+			</form>
+		</div>
+	</div>
+}
