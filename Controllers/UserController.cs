@@ -38,7 +38,7 @@ namespace StoryPromptMVC.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("model e fel");
             }
             var json = JsonConvert.SerializeObject(user);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -46,10 +46,10 @@ namespace StoryPromptMVC.Controllers
             
             if(!response.IsSuccessStatusCode)
             {
-                return BadRequest();
+                return BadRequest("fel med api");
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminUserHandler");
         }
 
         [HttpPost]
