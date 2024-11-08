@@ -8,19 +8,15 @@
 	<div class="card">
 		<div class="card-body">
 			<h5 class="card-title">
-				User
-			</h5>
-			<p class="card-text">
 				@user.userName
-			</p>
+			</h5>
 		</div>
 		<ul class="list-group list-group-flush">
 			<li class="list-group-item">User ID: @user.id</li>
-			<li class="list-group-item">Created Date: @user.email</li>
-			<li class="list-group-item">Password: @user.password</li>
+			<li class="list-group-item">Email: @user.email</li>
 		</ul>
 		<div class="card-body">
-			<a class="btn btn-light" asp-action="EditUser" asp-controller="User" asp-route-userId=@user.id>Edit story</a>
+			<a class="btn btn-primary" asp-action="EditUser" asp-controller="User" asp-route-userId=@user.id>Edit user</a>
 			<form asp-action="DeleteUser" asp-controller="User" asp-route-userId="@user.id" method="post" style="display:inline;">
 				<button type="submit" class="btn btn-danger">Delete User</button>
 			</form>
