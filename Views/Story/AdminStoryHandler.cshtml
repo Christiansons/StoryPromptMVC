@@ -1,0 +1,30 @@
+﻿@using StoryPromptMVC.Models.Story
+@model List<StoryVM>
+
+<h3>Story admin page</h3>
+@foreach(var story in Model)
+{
+	<div class="card"> 
+		<div class="card-body">
+			<h5 class="card-title">
+				Story
+			</h5>
+			<p class="card-text">
+				@story.storyContent
+			</p>
+		</div>
+		<ul class="list-group list-group-flush">
+			<li class="list-group-item">Story ID: @story.id</li>
+			<li class="list-group-item">Created Date: @story.storyDateCreated</li>
+			<li class="list-group-item"></li>
+			<li class="list-group-item">Related prompt ID: @story.promptId</li>
+			<li class="list-group-item">Related user ID: @story.userId</li>
+		</ul>
+		<div class="card-body">
+			<a class="btn btn-light" asp-action="EditStory" asp-controller="Story" asp-route-storyId=@story.id>Edit story</a>
+			<form asp-action="DeleteStory" asp-controller="Story" asp-route-storyId="@story.id" method="post" style="display:inline;">
+				<button type="submit" class="btn btn-danger">Delete Story</button>
+			</form>
+		</div>
+	</div>
+}
