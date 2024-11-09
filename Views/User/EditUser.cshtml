@@ -1,0 +1,12 @@
+﻿@using StoryPromptMVC.Models.User
+@model UserVM
+
+<form asp-action="EditUser" asp-controller="User" method="post">
+	<label asp-for="userName">New username: </label>
+	<input min="1" maxlength="15" type="text" asp-for="userName"/>
+	<label asp-for="email">New email:</label>
+	<input asp-for="email" type="email"/>
+	<input asp-for="id" value="@Model.id"/>
+
+	<button type="submit" class="btn btn-success">Submit</button>
+</form>

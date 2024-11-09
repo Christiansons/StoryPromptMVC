@@ -29,9 +29,12 @@ namespace StoryPromptMVC.Controllers
             return View(stories);
         }
 
-        public IActionResult CreateStory()
+        public async Task<IActionResult> CreateStory(int promptId)
         {
-            return View();
+            var response = await _client.GetAsync($"http://localhost:5173/api/Prompt/{promptId}");
+            var json = await response.Content.ReadAsStringAsync();
+            var prompt = JsonConvert.DeserializeObject<PromptVM>(json);
+            return View(prompt);
         }
 
         [HttpPost]
