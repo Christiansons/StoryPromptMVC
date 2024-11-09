@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 
 namespace StoryPromptMVC.Controllers
 {
@@ -9,12 +10,25 @@ namespace StoryPromptMVC.Controllers
         public ProfileController()
         {
             _client = new HttpClient();
-        }
+			_client.DefaultRequestHeaders.Accept.Clear();
+			_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+		}
 
-        public IActionResult Index(int userId)
+        public async Task<IActionResult> Index(string? userId = null)
         {
+            var token = HttpContext.Session.GetString("JwtToken"); //Get the token from Session
 
-            return View();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _client.GetAsync($"{baseAdress}/{userId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return BadRequest(response);
+            }
+
+            var profile = await response.Content.ReadAsStringAsync();
+            return View(profile);
         }
     }
 }
