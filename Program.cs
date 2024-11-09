@@ -6,8 +6,14 @@ namespace StoryPromptMVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+			builder.Services.AddSession(options =>
+			{
+				options.Cookie.HttpOnly = true;
+				options.Cookie.IsEssential = true;
+			});
+
+			// Add services to the container.
+			builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 
@@ -19,7 +25,10 @@ namespace StoryPromptMVC
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+			app.UseSession();  // Enable session middleware
+			app.UseAuthentication();  // Authentication middleware
+
+			app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
