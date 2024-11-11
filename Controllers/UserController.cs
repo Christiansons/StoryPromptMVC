@@ -34,7 +34,7 @@ namespace StoryPromptMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateUser(UserVM user)
+        public async Task<IActionResult> CreateUser(CreateUserVM user)
         {
             if(!ModelState.IsValid)
             {
