@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using StoryPromptMVC.Models.Prompt;
 using StoryPromptMVC.Models.Story;
+using System.Net.Http.Headers;
 using System.Text;
 
 namespace StoryPromptMVC.Controllers
@@ -31,20 +32,30 @@ namespace StoryPromptMVC.Controllers
 
         public async Task<IActionResult> CreateStory(int promptId)
         {
-            var response = await _client.GetAsync($"http://localhost:5173/api/Prompt/{promptId}");
+			
+
+			var response = await _client.GetAsync($"http://localhost:5173/api/Prompt/{promptId}");
             var json = await response.Content.ReadAsStringAsync();
             var prompt = JsonConvert.DeserializeObject<PromptVM>(json);
-            return View(prompt);
+
+            ViewBag.prompt = prompt;
+            ViewBag.propmtId = promptId;
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateStory(StoryVM story)
+        public async Task<IActionResult> CreateStory(CreateStoryVM story)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            var json = JsonConvert.SerializeObject(story);
+
+			var token = HttpContext.Session.GetString("JwtToken"); //Get the token from Session and get the userID from backend
+
+			_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+			var json = JsonConvert.SerializeObject(story);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(baseAdress, content);
 
