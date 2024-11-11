@@ -1,4 +1,4 @@
-
+﻿
 using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.AspNetCore.Mvc;
@@ -66,7 +66,7 @@ namespace StoryPromptMVC.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminProfileHandler");
         }
 
         [HttpPost]
@@ -111,7 +111,7 @@ namespace StoryPromptMVC.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("AdminProfileHandler");
         }
 
     }
