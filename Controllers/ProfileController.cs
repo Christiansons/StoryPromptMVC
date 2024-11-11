@@ -1,7 +1,10 @@
-﻿using System.Text;
+
+using System.Net.Http.Headers;
+using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StoryPromptMVC.Models.Profile;
+
 
 namespace StoryPromptMVC.Controllers
 {
@@ -12,12 +15,25 @@ namespace StoryPromptMVC.Controllers
         public ProfileController()
         {
             _client = new HttpClient();
-        }
+			_client.DefaultRequestHeaders.Accept.Clear();
+			_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+		}
 
-        public IActionResult Index(int userId)
+        public async Task<IActionResult> Index(string? userId = null)
         {
+            var token = HttpContext.Session.GetString("JwtToken"); //Get the token from Session
 
-            return View();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await _client.GetAsync($"{baseAdress}/{userId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return BadRequest(response);
+            }
+
+            var profile = await response.Content.ReadAsStringAsync();
+            return View(profile);
         }
 
         public async Task<IActionResult> AdminProfileHandler()
