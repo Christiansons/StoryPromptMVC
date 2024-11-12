@@ -1,0 +1,26 @@
+@model StoryPromptMVC.Models.Profile.ProfileVM
+
+<h3>Create Profile</h3>
+<form asp-action="CreateProfile" method="post">
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Picture" class="form-label">Picture URL</label>
+        <input asp-for="Picture" class="form-control" />
+        <span asp-validation-for="Picture" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UserId" class="form-label">User ID</label>
+        <input asp-for="UserId" class="form-control" />
+        <span asp-validation-for="UserId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ProfileCreated" class="form-label">Profile Created Date</label>
+        <input asp-for="ProfileCreated" class="form-control" />
+        <span asp-validation-for="ProfileCreated" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Profile</button>
+</form>
