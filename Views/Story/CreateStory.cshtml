@@ -1,17 +1,27 @@
-﻿@using StoryPromptMVC.Models.Prompt
-@using StoryPromptMVC.Models.Story
-@model PromptVM //Add another viewmodel with both promptRecived and storyToCreate
+﻿@using StoryPromptMVC.Models.Story
+@model CreateStoryVM 
+@{
+	ViewData["Title"] = "Create New Story";
+}
 
-<h3>Create ur story</h3>
+<h3>Create a story</h3>
+
+@if (ViewBag.Prompt != null)
+{
+	<div class="mb-4">
+		<h4><strong>Prompt</strong></h4>
+		<p>@ViewBag.prompt.Description</p>
+		<p><strong>Created date:</strong> @ViewBag.prompt.promptDateCreated</p>
+	</div>
+}
 
 <form asp-action="CreateStory" method="post">
 	<div>
-		<label asp-for="userName">Username:</label>
-		<input type="text" asp-for="userName" />
-		<label asp-for="email">Email:</label>
-		<input type="text" asp-for="email" />
-		<label asp-for="password">Password:</label>
-		<input type="password" asp-for="password" />
+		<label asp-for="storyContent">Write your story:</label>
+		<input type="text" asp-for="storyContent" />
+		<label asp-for="storyDateCreated">Created:</label>
+		<input readonly type="date" asp-for="storyDateCreated" value="@DateTime.Now"/>
+		<input type="hidden" asp-for="promptId"  value="@ViewBag.promptId"/>
 	</div>
-	<button type="submit">Create user</button>
+	<button type="submit">Create story</button>
 </form>
