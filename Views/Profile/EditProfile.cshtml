@@ -16,7 +16,7 @@
     </div>
     <div class="mb-3">
         <label asp-for="UserId" class="form-label">User ID</label>
-        <input asp-for="UserId" class="form-control" />
+        <input asp-for="UserId" class="form-control" value="@Model.UserId" readonly/>
         <span asp-validation-for="UserId" class="text-danger"></span>
     </div>
     <div class="mb-3">
