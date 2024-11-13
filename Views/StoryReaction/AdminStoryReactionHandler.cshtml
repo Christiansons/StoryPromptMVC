@@ -3,3 +3,26 @@
 *@
 @{
 }
+
+@model List<StoryPromptMVC.Models.StoryReaction.StoryReactionVM>
+
+<h3>Story Reactions</h3>
+
+@foreach (var reaction in Model)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Reaction ID: @reaction.Id</h5>
+            <p class="card-text">Reaction: @reaction.Reaction</p>
+            <p class="card-text">Story ID: @reaction.StoryId</p>
+            <p class="card-text">User ID: @reaction.UserId</p>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-primary" asp-action="EditReaction" asp-route-id="@reaction.Id">Edit</a>
+            <form asp-action="DeleteReaction" asp-route-id="@reaction.Id" method="post" style="display:inline;">
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
+}
+<a class="btn btn-success" asp-action="CreateReaction">Add New Reaction</a>
