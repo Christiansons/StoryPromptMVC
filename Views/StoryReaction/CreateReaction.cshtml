@@ -1,0 +1,23 @@
+@model StoryPromptMVC.Models.StoryReaction.StoryReactionVM
+
+<h3>Create New Reaction</h3>
+
+<form asp-action="CreateReaction" method="post">
+    <div class="mb-3">
+        <label asp-for="Reaction" class="form-label">Reaction</label>
+        <input asp-for="Reaction" class="form-control" />
+        <span asp-validation-for="Reaction" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="StoryId" class="form-label">Story ID</label>
+        <input asp-for="StoryId" class="form-control" />
+        <span asp-validation-for="StoryId" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="UserId" class="form-label">User ID</label>
+        <input asp-for="UserId" class="form-control" />
+        <span asp-validation-for="UserId" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Reaction</button>
+    <a class="btn btn-secondary" asp-action="Index">Cancel</a>
+</form>
