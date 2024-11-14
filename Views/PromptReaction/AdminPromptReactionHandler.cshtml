@@ -1,5 +1,40 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
+@model List<StoryPromptMVC.Models.PromptReaction.PromptReactionVM>
 @{
+    ViewData["Title"] = "All Prompt Reactions";
 }
+
+<div class="container mt-4">
+    <h1 class="mb-4">All Prompt Reactions</h1>
+    <a asp-action="CreateReaction" class="btn btn-primary mb-3">Add New Reaction</a>
+
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Reaction</th>
+                <th scope="col">Prompt Id</th>
+                <th scope="col">User Id</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var reaction in Model)
+            {
+                <tr>
+                    <td>@reaction.Id</td>
+                    <td>@reaction.Reaction</td>
+                    <td>@reaction.PromptId</td>
+                    <td>@reaction.UserId</td>
+                    <td>
+                        <a asp-action="EditReaction" asp-route-reactionId="@reaction.Id" class="btn btn-sm btn-warning">Edit</a>
+                        <form asp-action="DeleteReaction" method="post" style="display:inline-block;">
+                            <input type="hidden" name="reactionId" value="@reaction.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
