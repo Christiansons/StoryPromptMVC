@@ -1,0 +1,21 @@
+@model StoryPromptMVC.Models.PromptReaction.PromptReactionVM
+@{
+    ViewData["Title"] = "Delete Reaction";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4 text-danger">Delete Reaction</h1>
+
+    <p>Are you sure you want to delete this reaction?</p>
+    <div>
+        <strong>Reaction:</strong> @Model.Reaction <br />
+        <strong>Prompt ID:</strong> @Model.PromptId <br />
+        <strong>User ID:</strong> @Model.UserId
+    </div>
+
+    <form asp-action="DeleteReaction" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger mt-3">Yes, Delete</button>
+        <a asp-action="AdminPromptReactionHandler" class="btn btn-secondary mt-3">Cancel</a>
+    </form>
+</div>
