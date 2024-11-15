@@ -1,0 +1,28 @@
+@model StoryPromptMVC.Models.PromptReaction.PromptReactionVM
+@{
+    ViewData["Title"] = "Create Reaction";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Create New Reaction</h1>
+
+    <form asp-action="CreateReaction" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label asp-for="Reaction" class="form-label">Reaction</label>
+            <input asp-for="Reaction" class="form-control" required />
+            <span asp-validation-for="Reaction" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PromptId" class="form-label">Prompt ID</label>
+            <input asp-for="PromptId" class="form-control" required />
+            <span asp-validation-for="PromptId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="UserId" class="form-label">User ID</label>
+            <input asp-for="UserId" class="form-control" />
+            <span asp-validation-for="UserId" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a asp-action="AdminPromptReactionHandler" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
