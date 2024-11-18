@@ -1,0 +1,40 @@
+﻿@using StoryPromptMVC.Models.Profile
+@* @model ProfileByIdVM *@
+
+
+<div class="container-fluid bg-light mt-0">
+	<div class="row row-md-auto">
+		<div class="col">
+		</div>
+		<div class="col" style="height: 100px;">
+			<div class="w-100 h-100 d-inline-block p-3 rounded-circle border border-dark">
+				@* @Model.Picture *@
+			</div>
+		</div>
+		<div class="col justify-content-end">
+			@* @if (Model.IsOwnProfile)
+			{
+			<div>
+			<button>
+			Edit profile
+			</button>
+			</div>
+			} *@
+			edit profile
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+		</div>
+		<div class="col justify-content-md-center">
+			@* <strong>@Model.UserId</strong> *@ Username
+		</div>
+		<div class="col">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			@* @Model.Description *@ Beskriving
+		</div>
+	</div>
+</div>
