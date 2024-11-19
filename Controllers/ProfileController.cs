@@ -21,19 +21,20 @@ namespace StoryPromptMVC.Controllers
 
         public async Task<IActionResult> Index(string? userId = null)
         {
-            var token = HttpContext.Session.GetString("JwtToken"); //Get the token from Session
+            //var token = HttpContext.Session.GetString("JwtToken"); //Get the token from Session
 
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            //_client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = await _client.GetAsync($"{baseAdress}/{userId}");
+            //var response = await _client.GetAsync($"{baseAdress}/{userId}");
 
-            if (!response.IsSuccessStatusCode)
-            {
-                return BadRequest(response);
-            }
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    return BadRequest(response);
+            //}
 
-            var profile = await response.Content.ReadAsStringAsync();
-            return View(profile);
+            //var json = await response.Content.ReadAsStringAsync();
+            //var profile = JsonConvert.DeserializeObject<ProfileByIdVM>(json);
+            return View(/*profile*/);
         }
 
         public async Task<IActionResult> AdminProfileHandler()
