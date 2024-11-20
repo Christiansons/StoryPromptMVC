@@ -3,3 +3,35 @@
 *@
 @{
 }
+@model List<StoryPromptMVC.Models.Prompt.PromptVM>
+
+<h2>Admin Prompt Management</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Prompt ID</th>
+            <th>Content</th>
+            <th>Date Created</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var prompt in Model)
+        {
+            <tr>
+                <td>@prompt.id</td>
+                <td>@prompt.promptContent</td>
+                <td>@prompt.promptDateCreated.ToString("yyyy-MM-dd")</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="EditPrompt" asp-route-promptId="@prompt.id">Edit</a>
+                    <form asp-action="DeletePrompt" asp-route-promptId="@prompt.id" method="post" style="display:inline;">
+                        <button class="btn btn-danger btn-sm" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-success" asp-action="CreatePrompt">Create New Prompt</a>

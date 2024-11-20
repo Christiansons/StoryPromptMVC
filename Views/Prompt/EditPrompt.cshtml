@@ -1,0 +1,13 @@
+@model StoryPromptMVC.Models.Prompt.UpdatePromptVM
+
+<h2>Edit Prompt</h2>
+
+<form asp-action="EditPrompt" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label for="PromptContent">Prompt Content</label>
+        <textarea class="form-control" id="PromptContent" asp-for="PromptContent" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <a class="btn btn-secondary" asp-action="AdminPromptHandler">Cancel</a>
+</form>
