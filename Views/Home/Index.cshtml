@@ -2,51 +2,76 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container-fluid bg-light mt-0">
-    <div class="row justify-content-md-center">
-        <div class="col col-md-auto p-2">
-            <div class="border border-dark rounded p-2">
-                <h3>Daily Prompt</h3>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col text-left">
-            <h5>Username here</h5>
-        </div>
-    </div>
-    <div class="row">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-            Morbi tempor rutrum convallis. Nulla elementum elementum ante dapibus vestibulum. 
-            Fusce placerat massa eros, sit amet porttitor sem lacinia sit amet. Morbi quis accumsan neque. 
-            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
-        </p>
-    </div>
-    <div class="row">
-        <div class="col">
-           
-            <div class="d-flex align-items-center mt-2">
-                <div class="border border-dark rounded p-1">
-                    Likes
+
+
+<div>
+    <div class="container-fluid bg-light mt-0 dailyPrompt">
+        <div class="row justify-content-md-center ">
+            <div class="col col-md-auto p-2">
+                <div class="border-bottom border-dark p-2">
+                    <h3>Daily prompt<h3>
                 </div>
-                <form action="/" method="post">
-					<i class="fa-solid fa-thumbs-up m-2"
-					   style="cursor: pointer;" 
-                       onclick="this.closest('form').submit();"></i>
-                </form>
-            
-            
-                <form action="/" method="post">
-                    <i class="fa-solid fa-thumbs-down m-2" 
-                        style="cursor: pointer;"
-                        onclick="this.closest('form').submit();"></i>
-                </form>
-            
-                <a class="text-black m-2" href="#">
-                    <i class="fa-solid fa-comment"></i>
-                </a>
             </div>
         </div>
+        <div class="row">
+            <div class="col text-left">
+                <h5>Daily </h5>
+            </div>
+        </div>
+        <div class="row">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Morbi tempor rutrum convallis. Nulla elementum elementum ante dapibus vestibulum.
+                Fusce placerat massa eros, sit amet porttitor sem lacinia sit amet. Morbi quis accumsan neque.
+                Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas
+            </p>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <div class="d-flex align-items-center mt-2">
+                    <div class="border border-dark rounded p-1">
+                        Likes
+                    </div>
+                    <form action="/" method="post">
+                        <i class="fa-solid fa-thumbs-up m-2"
+                           style="cursor: pointer;"
+                           onclick="this.closest('form').submit();"></i>
+                    </form>
+
+
+                    <form action="/" method="post">
+                        <i class="fa-solid fa-thumbs-down m-2"
+                           style="cursor: pointer;"
+                           onclick="this.closest('form').submit();"></i>
+                    </form>
+
+                    <a class="text-black m-2" href="#">
+                        <i class="fa-solid fa-comment"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col leftSide">
+            <h2 class="nameIntro">We're to Promptly</h2>
+            <h4 class="nameDescriptionIntro">Make your ideas come to life</h4>
+            <p class="introText">
+                Welcome to our platform, a creative space where imagination knows no bounds! 
+                Here, you can unleash your creativity by writing prompts that inspire others or dive into a 
+                world of storytelling by responding to prompts with your own unique stories. Whether you're an 
+                aspiring writer, a seasoned storyteller, or simply someone who loves to explore new ideas, 
+                our website is the perfect place to connect, share, and engage with a vibrant community of 
+                like-minded individuals. Join us and turn ideas into stories, one prompt at a time!
+            </p>
+			<img class="imgStory" src="~/images/book-story.svg" />
+        </div>
+        
+        <div class="col rightSide">
+			<img class="imgPrompt" src="~/images/idea-prompt.svg" />
+        </div>
+
     </div>
 </div>
