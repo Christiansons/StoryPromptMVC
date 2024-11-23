@@ -1,0 +1,20 @@
+@using StoryPromptMVC.Models.Prompt
+@*  *@
+
+    
+
+    <!-- Main Content -->
+    <div class="prompt-container">
+        <h2 class="text-center mb-4">Write Your Prompt Here</h2>
+        <form id="promptForm">
+            <div class="mb-3">
+                <textarea class="form-control" id="promptContent" name="promptContent" rows="5" placeholder="Start writing your prompt..."></textarea>
+            </div>
+            <div class="d-flex justify-content-between">
+                <a href="/prompts" class="btn btn-secondary">Cancel</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        <p class="success-message" id="successMessage">Prompt submitted successfully!</p>
+    </div>
+

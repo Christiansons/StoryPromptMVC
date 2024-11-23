@@ -1,0 +1,16 @@
+@model StoryPromptMVC.Models.Prompt.CreatePromptVM
+
+<h2>Create a New Prompt</h2>
+
+<form asp-action="CreatePrompt" method="post">
+    <div class="form-group">
+        <label for="promptContent">Prompt Content</label>
+        <textarea class="form-control" id="promptContent" name="promptContent" rows="3"></textarea>
+    </div>
+    <div class="form-group">
+        <label for="promptDateCreated">Date Created</label>
+        <input type="date" class="form-control" id="promptDateCreated" name="promptDateCreated" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a class="btn btn-secondary" asp-action="AdminPromptHandler">Cancel</a>
+</form>
