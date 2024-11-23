@@ -16,22 +16,12 @@ html {
 
 
 body {
+
   margin-bottom: 60px;
   background-color: #f8f9fa;
   font-family: 'Arial', sans-serif;
 }
 
-
-/* body {
-  
-}
-
-.navbar {
-  background-color: #007bff;
-}
-.navbar-brand, .nav-link {
-  color: white !important;
-} */
 .prompt-container {
   max-width: 600px;
   margin: 50px auto;
@@ -40,14 +30,14 @@ body {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.btn-primary {
+.btn-custom {
   background-color: #007bff;
   border: none;
 }
-.btn-primary:hover {
+.btn-custom:hover {
   background-color: #0056b3;
 }
-.btn-secondary {
+.btn-2-custom {
   border-color: #6c757d;
 }
 .success-message {
@@ -60,4 +50,16 @@ body {
   .prompt-container {
       margin: 20px;
   }
+
+    margin-bottom: 60px;
+    background-color: #4c8899;
+}
+
+.headerbg {
+    background-color: #64ceed;
+}
+
+.bgContent {
+    background-color: #bff0fe;
+
 }
