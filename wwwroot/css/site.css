@@ -1,5 +1,7 @@
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -12,11 +14,50 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
 
 body {
   margin-bottom: 60px;
+  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+}
+
+
+/* body {
+  
+}
+
+.navbar {
+  background-color: #007bff;
+}
+.navbar-brand, .nav-link {
+  color: white !important;
+} */
+.prompt-container {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+.btn-secondary {
+  border-color: #6c757d;
+}
+.success-message {
+  display: none;
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}
+@media (max-width: 576px) {
+  .prompt-container {
+      margin: 20px;
+  }
 }
