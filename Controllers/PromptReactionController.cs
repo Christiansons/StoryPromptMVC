@@ -96,5 +96,13 @@ namespace StoryPromptMVC.Controllers
 
             return RedirectToAction("AdminPromptReactionHandler");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Upvote()
+        {
+            
+            return RedirectToAction("prompt", "top");
+        }
+
     }
 }
