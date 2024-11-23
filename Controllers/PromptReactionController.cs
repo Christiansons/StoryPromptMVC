@@ -96,5 +96,54 @@ namespace StoryPromptMVC.Controllers
 
             return RedirectToAction("AdminPromptReactionHandler");
         }
-    }
+
+        [HttpPost]
+        public async Task<IActionResult> Upvote(int promptId)
+        {
+			var userId = User.FindFirst("NameIdentifier").Value;
+            if(userId == null)
+            {
+				return View("user", "login");
+			}
+
+            var reaction = new AddPromptReactionVM
+            {
+                PromptId = promptId,
+                Reaction = "Upvote",
+                UserId = userId
+            };
+
+            var json = JsonConvert.SerializeObject(reaction);
+            var content = new StringContent(json, Encoding.UTF8 , "application/json");
+            var response = _client.PostAsync($"{baseAdress}", content);
+
+
+            return RedirectToAction("prompt", "top");
+        }
+
+		[HttpPost]
+		public async Task<IActionResult> Downvote(int promptId)
+		{
+			var userId = User.FindFirst("NameIdentifier").Value;
+			if (userId == null)
+			{
+				return View("user", "login");
+			}
+
+			var reaction = new AddPromptReactionVM
+			{
+				PromptId = promptId,
+				Reaction = "Downvote",
+				UserId = userId
+			};
+
+			var json = JsonConvert.SerializeObject(reaction);
+			var content = new StringContent(json, Encoding.UTF8, "application/json");
+			var response = _client.PostAsync($"{baseAdress}", content);
+
+
+			return RedirectToAction("prompt", "top");
+		}
+
+	}
 }

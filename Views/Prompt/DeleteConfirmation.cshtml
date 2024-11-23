@@ -1,0 +1,18 @@
+@model StoryPromptMVC.Models.Prompt.PromptVM
+
+<h2>Delete Prompt</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete the following prompt?
+</div>
+
+<ul>
+    <li><strong>ID:</strong> @Model.id</li>
+    <li><strong>Content:</strong> @Model.promptContent</li>
+    <li><strong>Date Created:</strong> @Model.promptDateCreated.ToString("yyyy-MM-dd")</li>
+</ul>
+
+<form asp-action="DeletePrompt" asp-route-promptId="@Model.id" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a class="btn btn-secondary" asp-action="AdminPromptHandler">Cancel</a>
+</form>

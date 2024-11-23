@@ -1,0 +1,30 @@
+﻿body {
+}
+
+.dailyPromptText {
+    border-radius: 5px;
+    border-style: solid;
+    border-top-color: #e9faff;
+    border-left-color: #e9faff;
+    border-right-color: #004170;
+    border-bottom-color: #004170;
+}
+
+.dailyPrompt {
+    border-radius: 5px;
+    border-style: solid;
+    border-top-color: #e9faff;
+    border-left-color: #e9faff;
+    border-right-color: #004170;
+    border-bottom-color: #004170;
+}
+
+.imgPrompt {
+    height: 300px;
+    width: 300px;
+}
+
+.imgStory {
+    height: 300px;
+    width: 300px;
+}

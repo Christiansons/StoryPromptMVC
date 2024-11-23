@@ -1,0 +1,77 @@
+﻿@using StoryPromptMVC.Models.Prompt
+@model IEnumerable<TopPromptVM>
+
+@{
+    ViewData["Title"] = "Top page";
+}
+
+<div class="container-fluid bgContent pt-3 pb-3">
+    <div class="row">
+        <div class=" col d-flex justify-content-center">
+            <h1>
+                <strong>
+                    Welcome to Our Top Prompts Page!
+                </strong>
+            </h1>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col d-flex justify-content-center">
+            <h4>
+                <p>
+                    Discover creative prompts, spark your imagination, and share your ideas with the community.
+                </p>
+            </h4>
+        </div>
+    </div>
+</div>
+
+
+@foreach(var prompt in Model)
+{
+    <div class="container-fluid bgContent mt-0 pb-3 pt-3 border-bottom">
+        <div class="row">
+            <div class="col text-left d-flex">
+                <h5><strong>Written by: </strong></h5>
+                <a  class="" asp-controller="profile" asp-action="Index" asp-route-id="@prompt.user.Id">
+                     <h5 class="">  @prompt.user.UserName</h5>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <p>
+                @prompt.PromptContent
+            </p>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <div class="d-flex align-items-center mt-2">
+                    
+                    <form asp-controller="PromptReaction" asp-action="upvote" method="post">
+                        <i class="fa-solid fa-thumbs-up m-2"
+                           style="cursor: pointer;"
+                           onclick="this.closest('form').submit();"></i>
+                    </form>
+                    <div class="border border-dark rounded p-1">
+                        <strong>@prompt.ReactionCount</strong>
+                    </div>
+                    <form asp-controller="PromptReaction" asp-action="downvote" method="post" >
+                        <i class="fa-solid fa-thumbs-down m-2"
+                           style="cursor: pointer;"
+                           onclick="this.closest('form').submit();"></i>
+                    </form>
+
+                    
+                </div>
+            </div>
+            <div class="col"></div>
+            <div class="col d-flex justify-content-end">
+                <a class="text-black m-2" asp-controller="story" asp-action="comments">
+                    <i class="fa-solid fa-comment"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+}
+

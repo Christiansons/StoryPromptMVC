@@ -30,6 +30,15 @@ namespace StoryPromptMVC.Controllers
             return View(stories);
         }
 
+        public async Task<IActionResult> PromptStories(int promptId)
+        {
+            var response = await _client.GetAsync($"{baseAdress}/all/{promptId}");
+            var json = await response.Content.ReadAsStringAsync();
+            var stories = JsonConvert.DeserializeObject<IEnumerable<StoryVM>>(json);
+
+            return View(stories);
+        }
+
         public async Task<IActionResult> CreateStory(int promptId)
         {
 			
