@@ -98,6 +98,21 @@ namespace StoryPromptMVC.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> Top()
+        {
+            var resposne = await _client.GetAsync($"{baseAdress}/top");
+            var json = await resposne.Content.ReadAsStringAsync();
+            var topPrompts = JsonConvert.DeserializeObject<IEnumerable<TopPromptVM>>(json);
+            return View(topPrompts);
+        }
+
+        public async Task<IActionResult> New()
+        {
+            var resposne = await _client.GetAsync($"{baseAdress}/new");
+            var json = await resposne.Content.ReadAsStringAsync();
+            var topPrompts = JsonConvert.DeserializeObject<IEnumerable<NewPromptVM>>(json);
+            return View(topPrompts);
+        }
     }
 }
 

@@ -18,5 +18,14 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #4c8899;
+}
+
+.headerbg {
+    background-color: #64ceed;
+}
+
+.bgContent {
+    background-color: #bff0fe;
 }

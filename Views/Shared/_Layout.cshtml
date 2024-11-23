@@ -12,9 +12,9 @@
 	<link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
 	<link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
-<body>
-    <header>
-    <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
+<body class=".bodybg-color">
+    <header class="headerbg">
+    <nav class="navbar navbar-expand-sm navbar-light box-shadow pt-3 pb-3">
         <div class="container-fluid">
             <!-- Mobile View: Collapse Button -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" 
@@ -40,14 +40,19 @@
                 <!-- Center: Links -->
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                            Link 1
+                        <a class="nav-link text-dark" asp-area="" asp-controller="prompt" asp-action="top">
+                            Top prompts
                         </a>
                     </li>
-                    <li>
-                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                             <h4><strong>Website name</strong></h4>
-                         </a>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                            Link 2
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                            Link 2
+                        </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
