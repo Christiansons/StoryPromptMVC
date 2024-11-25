@@ -115,7 +115,7 @@ namespace StoryPromptMVC.Controllers
 
             var json = JsonConvert.SerializeObject(reaction);
             var content = new StringContent(json, Encoding.UTF8 , "application/json");
-            var response = _client.PostAsync($"{baseAdress}", content);
+            var response = await _client.PostAsync($"{baseAdress}", content);
 
 
             return RedirectToAction("prompt", "top");
@@ -139,7 +139,7 @@ namespace StoryPromptMVC.Controllers
 
 			var json = JsonConvert.SerializeObject(reaction);
 			var content = new StringContent(json, Encoding.UTF8, "application/json");
-			var response = _client.PostAsync($"{baseAdress}", content);
+			var response = await _client.PostAsync($"{baseAdress}", content);
 
 
 			return RedirectToAction("prompt", "top");
