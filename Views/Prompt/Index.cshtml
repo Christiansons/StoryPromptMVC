@@ -1,20 +1,42 @@
 @using StoryPromptMVC.Models.Prompt
-@*  *@
+@model CreatePromptVM
 
+
+
+@* @if (!User.Identity.IsAuthenticated)
+{
+   If not logged in redirect to login
+} *@
+
+@{
+    var userName = "Alex";
+    var userId = "1ea09356-78b4-40ab-99f1-b2a8b993af1d";
+
+    // var userId = User.FindFirst("NameIdentifier").Value;
+    // var userName = User.FindFirst("Name").Value;
+}
     
 
-    <!-- Main Content -->
-    <div class="prompt-container">
-        <h2 class="text-center mb-4">Write Your Prompt Here</h2>
-        <form id="promptForm">
-            <div class="mb-3">
-                <textarea class="form-control" id="promptContent" name="promptContent" rows="5" placeholder="Start writing your prompt..."></textarea>
-            </div>
-            <div class="d-flex justify-content-between">
-                <a href="/prompts" class="btn btn-secondary">Cancel</a>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </form>
-        <p class="success-message" id="successMessage">Prompt submitted successfully!</p>
-    </div>
+<!-- Main Content -->
+<div class="prompt-container">
+    <h2>
+        Welcome, @userName!
+    </h2>
+
+    <h2 class="text-center mb-4">Write Your Prompt Here</h2>
+    <form asp-controller="Prompt" asp-action="CreatePrompt">
+        <div class="mb-3">
+            <textarea class="form-control" asp-for="@Model.PromptContent" rows="5" placeholder="Start writing your prompt..."></textarea>
+        </div>
+        <div class="d-flex justify-content-between">
+            <a asp-controller="home" asp-action="index" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <input type="hidden" asp-for="UserId" value="@userId" />
+    </form>
+    <p class="success-message" id="successMessage">Prompt submitted successfully!</p>
+</div>
+
+
+    
 

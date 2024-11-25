@@ -35,12 +35,13 @@ namespace StoryPromptMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePrompt(PromptVM prompt)
+        public async Task<IActionResult> CreatePrompt(CreatePromptVM prompt)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
             var json = JsonConvert.SerializeObject(prompt);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync(baseAdress, content);
@@ -50,7 +51,7 @@ namespace StoryPromptMVC.Controllers
                 return BadRequest();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Prompt");
         }
 
         [HttpPost]
