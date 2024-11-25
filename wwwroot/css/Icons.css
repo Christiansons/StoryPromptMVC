@@ -1,0 +1,22 @@
+﻿body {
+}
+
+.like {
+    transition: 0.3s;
+    opacity: 0.6;
+    color: green;
+}
+
+.like:hover{
+    opacity: 1;
+}
+
+.dislike {
+    transition: 0.3s;
+    opacity: 0.6;
+    color: darkred;
+}
+
+.dislike:hover{
+    opacity: 1;
+}

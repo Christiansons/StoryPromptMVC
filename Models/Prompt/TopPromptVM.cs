@@ -9,5 +9,6 @@ namespace StoryPromptMVC.Models.Prompt
         public DateTime PromptDateCreated { get; set; }
         public UserPromptVM user { get; set; }
         public int ReactionCount { get; set; }
+        public int StoryCount { get; set; }
     }
 }

@@ -5,12 +5,12 @@
     ViewData["Title"] = "Top page";
 }
 
-<div class="container-fluid bgContent pt-3 pb-3">
+<div class="container-fluid pt-3 pb-3">
     <div class="row">
-        <div class=" col d-flex justify-content-center">
+        <div class=" col d-flex justify-content-start p-lg-2">
             <h1>
                 <strong>
-                    Welcome to Our Top Prompts Page!
+                    Welcome, Top rated prompts all time.
                 </strong>
             </h1>
         </div>
@@ -18,8 +18,8 @@
     <div class="row ">
         <div class="col d-flex justify-content-center">
             <h4>
-                <p>
-                    Discover creative prompts, spark your imagination, and share your ideas with the community.
+                <p class="text-muted">
+                    Discover the most creative, funny, and well written prompts that our users think deserve the highest ratings! 
                 </p>
             </h4>
         </div>
@@ -29,13 +29,10 @@
 
 @foreach(var prompt in Model)
 {
-    <div class="container-fluid bgContent mt-0 pb-3 pt-3 border-bottom">
+    <div class="card container-fluid bgContent mt-3 pb-3 pt-3 border-bottom">
         <div class="row">
             <div class="col text-left d-flex">
-                <h5><strong>Written by: </strong></h5>
-                <a  class="" asp-controller="profile" asp-action="Index" asp-route-id="@prompt.user.Id">
-                     <h5 class="">  @prompt.user.UserName</h5>
-                </a>
+                <small class="text-muted">By <a asp-controller="profile" asp-action="index" asp-route-id="@prompt.user.Id"><strong>@prompt.user.UserName </strong></a> |  Post on: @prompt.PromptDateCreated</small>
             </div>
         </div>
         <div class="row">
@@ -49,15 +46,15 @@
                 <div class="d-flex align-items-center mt-2">
                     
                     <form asp-controller="PromptReaction" asp-action="upvote" method="post">
-                        <i class="fa-solid fa-thumbs-up m-2"
+                        <i class="fa-solid fa-thumbs-up m-2 like"
                            style="cursor: pointer;"
                            onclick="this.closest('form').submit();"></i>
                     </form>
-                    <div class="border border-dark rounded p-1">
+                    <div class="">
                         <strong>@prompt.ReactionCount</strong>
                     </div>
                     <form asp-controller="PromptReaction" asp-action="downvote" method="post" >
-                        <i class="fa-solid fa-thumbs-down m-2"
+                        <i class="fa-solid fa-thumbs-down m-2 dislike"
                            style="cursor: pointer;"
                            onclick="this.closest('form').submit();"></i>
                     </form>
@@ -67,8 +64,9 @@
             </div>
             <div class="col"></div>
             <div class="col d-flex justify-content-end">
-                <a class="text-black m-2" asp-controller="story" asp-action="comments">
-                    <i class="fa-solid fa-comment"></i>
+                <a class="text-black m-2 text-decoration-none" asp-controller="story" asp-action="comments">
+                    <small class="text-muted">@prompt.StoryCount comments  <i class="fa-solid fa-comment"></i></small>
+                    
                 </a>
             </div>
         </div>
