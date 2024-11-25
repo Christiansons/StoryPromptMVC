@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StoryPromptMVC.Models.Prompt;
+using StoryPromptMVC.Models.PromptStory;
 using StoryPromptMVC.Models.Story;
 using System.Net.Http.Headers;
 using System.Text;
@@ -28,6 +29,27 @@ namespace StoryPromptMVC.Controllers
             var stories = JsonConvert.DeserializeObject<List<StoryVM>>(content);
 
             return View(stories);
+        }
+
+        public async Task<IActionResult> PromptStories(int Id)
+        {
+            //Get the prompt
+            var promptResponse = await _client.GetAsync($"http://localhost:5173/api/Prompt/{Id}");
+            var promptJson = await promptResponse.Content.ReadAsStringAsync();
+            var prompt = JsonConvert.DeserializeObject<PromptByIdVM>(promptJson);
+
+            //Get the Stories for prompt
+            var storyResponse = await _client.GetAsync($"{baseAdress}/all/{Id}");
+            var storyJson = await storyResponse.Content.ReadAsStringAsync();
+            var storiesForPrompt = JsonConvert.DeserializeObject<IEnumerable<StoryByPromptVM>>(storyJson);
+
+            var promptAndStories = new PromptWithStoriesVM
+            {
+                Prompt = prompt,
+                Stories = storiesForPrompt
+            };
+
+            return View(promptAndStories);
         }
 
         public async Task<IActionResult> CreateStory(int promptId)
