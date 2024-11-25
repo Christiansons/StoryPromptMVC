@@ -2,11 +2,11 @@
 
 namespace StoryPromptMVC.Models.Prompt
 {
-    public class PromptVM
+    public class PromptByIdVM
     {
-        public int id { get; set; }
-        public string promptContent { get; set; }
-        public DateTime promptDateCreated { get; set; }
+        public int Id { get; set; }
+        public string PromptContent { get; set; }
+        public DateTime PromptDateCreated { get; set; }
         public UserPromptVM user { get; set; }
         public int ReactionCount { get; set; }
         public int StoryCount { get; set; }
