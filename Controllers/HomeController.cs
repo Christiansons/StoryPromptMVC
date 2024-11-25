@@ -6,7 +6,7 @@ namespace StoryPromptMVC.Controllers
 {
     public class HomeController : Controller
     {
-
+        //test
         public IActionResult Index()
         {
             return View();
