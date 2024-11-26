@@ -12,7 +12,7 @@ namespace StoryPromptMVC.Controllers
 {
     public class ProfileController : Controller
     {
-        private readonly string _baseAddress = "http://localhost:5173/api/Profile";
+        private readonly string _baseAddress = "https://promptlyapi.azurewebsites.net/api/Profile";
         private readonly HttpClient _client;
         public ProfileController()
         {

@@ -8,7 +8,7 @@ namespace StoryPromptMVC.Controllers
 {
     public class PromptController : Controller
     {
-        private readonly string baseAdress = "http://localhost:5173/api/Prompt";
+        private readonly string baseAdress = "https://promptlyapi.azurewebsites.net/api/Prompt";
         private readonly HttpClient _client;
         public PromptController()
         {
