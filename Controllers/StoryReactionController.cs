@@ -7,7 +7,7 @@ namespace StoryPromptMVC.Controllers
 {
     public class StoryReactionController : Controller
     {
-        private readonly string baseAdress = "http://localhost:5173/api/StoryReaction";
+        private readonly string baseAdress = "https://promptlyapi.azurewebsites.net/api/StoryReaction";
         private readonly HttpClient _client;
         public StoryReactionController()
         {
