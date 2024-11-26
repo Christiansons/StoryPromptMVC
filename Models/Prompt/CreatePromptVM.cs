@@ -7,8 +7,9 @@ namespace StoryPromptMVC.Models.Prompt
 {
     public class CreatePromptVM
     {
-        //public int id { get; set; }
-        public string promptContent { get; set; }
-        public DateTime promptDateCreated { get; set; }
+        //public int id { get; set; } Get from cookie
+        public string UserId { get; set; }
+        public string PromptContent { get; set; }
+        
     }
 }
