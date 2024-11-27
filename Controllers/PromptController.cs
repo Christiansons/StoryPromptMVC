@@ -114,6 +114,17 @@ namespace StoryPromptMVC.Controllers
             var topPrompts = JsonConvert.DeserializeObject<IEnumerable<NewPromptVM>>(json);
             return View(topPrompts);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetPromptLikes(int id)
+        {
+            var response = await _client.GetAsync($"{baseAdress}/{id}");
+            var json = await response.Content.ReadAsStringAsync();
+            var prompt = JsonConvert.DeserializeObject<PromptByIdVM>(json);
+
+            var ReactionCount = prompt.ReactionCount;
+            return View(new {ReactionCount});
+        }
     }
 }
 

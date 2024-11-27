@@ -33,24 +33,7 @@ namespace StoryPromptMVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateReaction(PromptReactionVM promptReaction)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            var json = JsonConvert.SerializeObject(promptReaction);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync(baseAdress, content);
-
-            if (!response.IsSuccessStatusCode)
-            {
-                return BadRequest();
-            }
-
-            return RedirectToAction("AdminPromptReactionHandler");
-        }
+        
 
         [HttpPost]
         public async Task<IActionResult> DeleteReaction(int reactionId)
@@ -98,52 +81,22 @@ namespace StoryPromptMVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upvote(int promptId)
+        public async Task<IActionResult> CreateReaction(AddPromptReactionVM reactionVM)
         {
-			var userId = User.FindFirst("NameIdentifier").Value;
-            if(userId == null)
+            if(!ModelState.IsValid)
             {
-				return View("user", "login");
-			}
-
-            var reaction = new AddPromptReactionVM
-            {
-                PromptId = promptId,
-                Reaction = "Upvote",
-                UserId = userId
-            };
-
-            var json = JsonConvert.SerializeObject(reaction);
+                return BadRequest();
+            }
+            var json = JsonConvert.SerializeObject(reactionVM);
             var content = new StringContent(json, Encoding.UTF8 , "application/json");
-            var response = await _client.PostAsync($"{baseAdress}", content);
+            var response = await _client.PostAsync($"{baseAdress}/PromptReaction", content);
+            if (!response.IsSuccessStatusCode)
+            {
+                return BadRequest();
+            }
 
-
-            return RedirectToAction("prompt", "top");
+            return Ok();
         }
 
-		[HttpPost]
-		public async Task<IActionResult> Downvote(int promptId)
-		{
-			var userId = User.FindFirst("NameIdentifier").Value;
-			if (userId == null)
-			{
-				return View("user", "login");
-			}
-
-			var reaction = new AddPromptReactionVM
-			{
-				PromptId = promptId,
-				Reaction = "Downvote",
-				UserId = userId
-			};
-
-			var json = JsonConvert.SerializeObject(reaction);
-			var content = new StringContent(json, Encoding.UTF8, "application/json");
-			var response = await _client.PostAsync($"{baseAdress}", content);
-
-
-			return RedirectToAction("prompt", "top");
-		}
-
-	}
+    }
 }

@@ -34,7 +34,7 @@ namespace StoryPromptMVC.Controllers
         public async Task<IActionResult> PromptStories(int Id)
         {
             //Get the prompt
-            var promptResponse = await _client.GetAsync($"http://localhost:5173/api/Prompt/{Id}");
+            var promptResponse = await _client.GetAsync($"https://promptlyapi.azurewebsites.net/api/Prompt/{Id}");
             var promptJson = await promptResponse.Content.ReadAsStringAsync();
             var prompt = JsonConvert.DeserializeObject<PromptByIdVM>(promptJson);
 

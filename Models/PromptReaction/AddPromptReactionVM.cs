@@ -2,8 +2,8 @@
 {
 	public class AddPromptReactionVM
 	{
-		public string Reaction { get; set; }
-		public int PromptId { get; set; }
-		public string UserId { get; set; }
+		public string reaction { get; set; }
+		public int promptId { get; set; }
+		public string userId { get; set; }
 	}
 }
