@@ -89,7 +89,7 @@ namespace StoryPromptMVC.Controllers
             }
             var json = JsonConvert.SerializeObject(reactionVM);
             var content = new StringContent(json, Encoding.UTF8 , "application/json");
-            var response = await _client.PostAsync($"{baseAdress}/PromptReaction", content);
+            var response = await _client.PostAsync($"{baseAdress}", content);
             if (!response.IsSuccessStatusCode)
             {
                 return BadRequest();

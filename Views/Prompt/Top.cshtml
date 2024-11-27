@@ -49,10 +49,24 @@
             <div class="col">
 
                 <div class="d-flex align-items-center mt-2">
-                    
-                    <i class="fa-solid fa-thumbs-up m-2 like"
+
+                    <form asp-controller="PromptReaction" asp-action="upvote" method="post">
+                        <i class="fa-solid fa-thumbs-up m-2 like"
+                           style="cursor: pointer;"
+                           onclick="this.closest('form').submit();"></i>
+                    </form>
+                    <div class="">
+                        <strong>@prompt.ReactionCount</strong>
+                    </div>
+                    <form asp-controller="PromptReaction" asp-action="downvote" method="post">
+                        <i class="fa-solid fa-thumbs-down m-2 dislike"
+                           style="cursor: pointer;"
+                           onclick="this.closest('form').submit();"></i>
+                    </form>
+                    @* <i class="fa-solid fa-thumbs-up m-2 like"
                         style="cursor: pointer;"
                         id="upvoteButton"></i>
+                        
                         
                         
                     
@@ -69,7 +83,7 @@
 
                     <input type="hidden"
                             id="promptId"
-                            value="@prompt.Id" />
+                            value="@prompt.Id" /> *@
                     
 
                     
@@ -87,21 +101,22 @@
 }
 
 
-@section Scripts {
+@* @section Scripts {
     <script type="text/javascript">
         $(function () {
             LoadLikes();
-            $("#upvoteButton, #downvoteButton").click(function () {
+            $("#upvoteButton, #downvoteButton").click(function (e) {
+                e.preventDefault();
                 var reaction = {
-                    reaction = $(this).attr("id") === "upvoteButton" ? "Upvote" : "Downvote",
-                    promptId = $("#promptId").val(),
-                    userId = $("#userId").val()
+                    reaction: $(this).attr("id") === "upvoteButton" ? "Upvote" : "Downvote",
+                    promptId: $("#promptId").val(),
+                    userId: $("#userId").val()
                 };
                 
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("PromptReaction", "CreateReaction")',
-                    data: '{reaction: ' + JSON.stringify(reaction) + '}',
+                    url: '@Url.Action("CreateReaction", "PromptReaction")',
+                    data: JSON.stringify(reaction),
                     dataType: "json",
                     contentType: "application/json; charset=utf-8",
                     success: function () {
@@ -125,13 +140,13 @@
                 data: { promptId: promptId }, // Pass promptId as a query parameter
                 success: function (response) {
                     // Update the likes count on the page dynamically
-                    $("#likesCount").text(response.ReactionCount || 0);
+                    $("#ReactionCount").text(response.ReactionCount || 0);
                 },
                 error: function () {
                     alert("Error loading likes");
                 }
             });
         }
-    </script>
+    </script> *@
 
-}
+
