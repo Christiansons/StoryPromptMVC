@@ -1,175 +1,175 @@
-﻿
-using System.Net.Http.Headers;
-using System.Text;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 using StoryPromptMVC.Models.Profile;
+using System.Security.Claims;
 using StoryPromptMVC.Models.User;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
+using StoryPromptMVC.Models;
 
 namespace StoryPromptMVC.Controllers
 {
+    [Authorize]
     public class ProfileController : Controller
     {
-        private readonly string _baseAddress = "https://promptlyapi.azurewebsites.net/api/Profile";
-        private readonly HttpClient _client;
-        public ProfileController()
+
+
+
+        private readonly IHttpClientFactory _httpClientFactory;
+
+        public ProfileController(IHttpClientFactory httpClientFactory)
         {
-            _client = new HttpClient();
-			_client.DefaultRequestHeaders.Accept.Clear();
-			_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-		}
+            _httpClientFactory = httpClientFactory;
+        }
 
-        //private void SetAuthorizationHeader()
-        //{
-        //    var token = HttpContext.Session.GetString("JwtToken"); // Get token from session
-        //    if (!string.IsNullOrEmpty(token))
-        //    {
-        //        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        //    }
-        //}
-
-        public async Task<IActionResult> Index(string userId = null)
+        // GET: /Profile/Details
+        [HttpGet]
+        public async Task<IActionResult> Details()
         {
-            //SetAuthorizationHeader();
-
+            var userId = User.FindFirst("sub")?.Value; // Extract user ID from token
             if (string.IsNullOrEmpty(userId))
             {
-                return BadRequest("User ID is required.");
+                return RedirectToAction("Login", "Account");
             }
 
-            var response = await _client.GetAsync($"{_baseAddress}/{userId}");
-            if (!response.IsSuccessStatusCode)
-            {
-                return BadRequest("Failed to retrieve profile.");
-            }
-
-            var json = await response.Content.ReadAsStringAsync();
-            var profile = JsonConvert.DeserializeObject<ProfileByIdVM>(json);
-
-            return View(profile);
-        }
-		
-		public IActionResult TestView()
-		{
-			var testProfile = new ProfileVM
-			{
-				Id = 1,
-				Description = "This is a test description",
-				Picture = "test-image.png",
-				ProfileCreated = DateOnly.FromDateTime(DateTime.Now),
-				UserId = "user123"
-			};
-
-			return View("Index", testProfile); // Specify the view name if it's not "TestView"
-		}
-
-		public async Task<IActionResult> AdminProfileHandler()
-        {
-            //SetAuthorizationHeader();
-
-            var response = await _client.GetAsync(_baseAddress);
-            if (!response.IsSuccessStatusCode)
-            {
-                return BadRequest("Failed to retrieve profiles.");
-            }
-
-            var json = await response.Content.ReadAsStringAsync();
-            var profiles = JsonConvert.DeserializeObject<List<ProfileVM>>(json);
-
-            return View(profiles);
-        }
-
-        public IActionResult CreateProfile()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateProfile(ProfileVM profile)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(profile);
-            }
-
-            //SetAuthorizationHeader();
-
-            var json = JsonConvert.SerializeObject(profile);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync(_baseAddress, content);
+            var client = _httpClientFactory.CreateClient("StoryPromptAPI");
+            var response = await client.GetAsync($"/api/Profile/user/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
-                ModelState.AddModelError("", "Failed to create profile.");
-                return View(profile);
+                TempData["ErrorMessage"] = "Unable to fetch profile.";
+                return RedirectToAction("Index", "Home");
             }
 
-            return RedirectToAction("AdminProfileHandler");
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteProfile(string userId)
-        {
-            if (string.IsNullOrEmpty(userId))
-
-            {
-                return BadRequest("User ID is required.");
-            }
-            //SetAuthorizationHeader();
-
-            var response = await _client.DeleteAsync($"{_baseAddress}/{userId}");
-            if (!response.IsSuccessStatusCode)
-            {
-                return BadRequest("Failed to delete profile.");
-            }
-
-            return RedirectToAction("AdminProfileHandler");
-        }
-
-        public async Task<IActionResult> EditProfile(string userId)
-
-        {
-            if (string.IsNullOrEmpty(userId))
-            {
-                return BadRequest("User ID is required.");
-            }
-
-            //SetAuthorizationHeader();
-
-            var response = await _client.GetAsync($"{_baseAddress}/{userId}");
-            if (!response.IsSuccessStatusCode)
-            {
-                return BadRequest("Failed to retrieve profile for editing.");
-            }
-
-            var json = await response.Content.ReadAsStringAsync();
-            var profile = JsonConvert.DeserializeObject<ProfileVM>(json);
-
+            var profile = await response.Content.ReadFromJsonAsync<ProfileViewModel>();
             return View(profile);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> EditProfile(ProfileVM profileToEdit)
+        // GET: /Profile/Edit
+        [HttpGet]
+        public async Task<IActionResult> Edit()
         {
-            if (!ModelState.IsValid)
+            var userId = User.FindFirst("sub")?.Value; // Ensure your token contains "sub"
+            if (string.IsNullOrEmpty(userId))
             {
-                return View(profileToEdit);
+                return RedirectToAction("Login", "Account");
             }
-            //SetAuthorizationHeader();
 
-            var json = JsonConvert.SerializeObject(profileToEdit);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"{_baseAddress}/{profileToEdit.UserId}", content);
+            var client = _httpClientFactory.CreateClient("StoryPromptAPI");
+            var response = await client.GetAsync($"/api/Profile/user/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
-                ModelState.AddModelError("", "Failed to update profile.");
-                return View(profileToEdit);
+                TempData["ErrorMessage"] = "Unable to fetch profile.";
+                return RedirectToAction("Details");
             }
 
-            return RedirectToAction("AdminProfileHandler");
+            var profile = await response.Content.ReadFromJsonAsync<ProfileViewModel>();
+
+            // Add UserId and UserName from claims if not already in the profile
+            profile.UserId = userId;
+            profile.UserName = User.FindFirst("unique_name")?.Value ?? "Unknown";
+
+            return View(profile);
+
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(ProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                foreach (var key in ModelState.Keys)
+                {
+                    var errors = ModelState[key].Errors;
+                    foreach (var error in errors)
+                    {
+                        Console.WriteLine($"Key: {key}, Error: {error.ErrorMessage}");
+                    }
+                }
+                return View(model);
+            }
+
+            // Prepare UpdateProfileDTO
+            var updateProfileDto = new UpdateProfileViewModel
+            {
+                Id = model.Id,
+                UserId = model.UserId,
+                Description = model.Description,
+                Picture = model.Picture
+            };
+
+            var client = _httpClientFactory.CreateClient("StoryPromptAPI");
+            var response = await client.PutAsJsonAsync($"/api/Profile/{model.UserId}", updateProfileDto);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["ErrorMessage"] = "Failed to update profile.";
+                return View(model);
+            }
+
+            TempData["SuccessMessage"] = "Profile updated successfully!";
+            return RedirectToAction("Details");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> PostHistory()
+        {
+            var userId = User.FindFirst("sub")?.Value; // Fetch the logged-in user's ID
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var client = _httpClientFactory.CreateClient("StoryPromptAPI");
+
+            // Fetch user's prompts
+            var promptsResponse = await client.GetAsync($"/api/Prompt/user/{userId}");
+            var prompts = promptsResponse.IsSuccessStatusCode
+                ? await promptsResponse.Content.ReadFromJsonAsync<List<PromptViewModel>>()
+                : new List<PromptViewModel>();
+
+            // Fetch user's stories
+            var storiesResponse = await client.GetAsync($"/api/Story/user/{userId}");
+            var stories = storiesResponse.IsSuccessStatusCode
+                ? await storiesResponse.Content.ReadFromJsonAsync<List<StoryViewModel>>()
+                : new List<StoryViewModel>();
+
+            // Combine and order by date
+            var posts = prompts.Select(p => new UserPostViewModel
+            {
+                Id = p.Id,
+                Content = p.PromptContent,
+                DateCreated = p.PromptDateCreated,
+                Type = "Prompt"
+            })
+            .Concat(stories.Select(s => new UserPostViewModel
+            {
+                Id = s.Id,
+                Content = s.StoryContent,
+                DateCreated = s.StoryDateCreated,
+                Type = "Story"
+            }))
+            .OrderByDescending(post => post.DateCreated)
+            .ToList();
+
+            return View(posts);
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> Details(string userId)
+        {
+            var client = _httpClientFactory.CreateClient("StoryPromptAPI");
+            var response = await client.GetAsync($"/api/Profile/user/{userId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["ErrorMessage"] = "Unable to fetch profile.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            var profile = await response.Content.ReadFromJsonAsync<ProfileViewModel>();
+            return View(profile);
         }
 
     }
