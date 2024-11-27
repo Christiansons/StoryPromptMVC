@@ -6,15 +6,28 @@ namespace StoryPromptMVC
         {
             var builder = WebApplication.CreateBuilder(args);
 
-			builder.Services.AddSession(options =>
-			{
-				options.Cookie.HttpOnly = true;
-				options.Cookie.IsEssential = true;
-			});
+			
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
+            builder.Services.AddAuthentication("CookieAuthentication")
+                            .AddCookie("CookieAuthentication", options =>
+                            {
+                                options.LoginPath = "/Account/Login"; // Redirect here if not logged in
+                                options.AccessDeniedPath = "/Account/AccessDenied"; // Redirect here for unauthorized access
+                                options.Cookie.Name = "StorySiteAuth"; // Cookie name
+                                options.ExpireTimeSpan = TimeSpan.FromHours(1); // Expiry time for the cookie
+                                options.SlidingExpiration = true; // Renew cookie on activity
 
+                            });
+            builder.Services.AddHttpClient("StoryPromptAPI", client =>
+            {
+                client.BaseAddress = new Uri("https://promptlyapi.azurewebsites.net"); // Replace with your API base URL
+            });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -25,14 +38,14 @@ namespace StoryPromptMVC
                 app.UseHsts();
             }
 
-			app.UseSession();  // Enable session middleware
+			  // Enable session middleware
 			app.UseAuthentication();  // Authentication middleware
 
 			app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

@@ -50,21 +50,17 @@
                         <a class="nav-link text-dark" asp-area="" asp-controller="prompt" asp-action="new">
                             New prompts
                         </a>
-                    </li>@* 
+                   
                     <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
-                            Top Stories
-                        </a>
-                    </li> *@
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="prompt" asp-action="index">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Prompt" asp-action="Create">
+
                             Create a prompt
                         </a>
                     </li>
                 </ul>
 
                 <!-- Right Side: Profile Link -->
-                <a class="nav-link text-dark d-none d-sm-inline" asp-controller="user" asp-action="index">
+                    <a class="nav-link text-dark d-none d-sm-inline" asp-controller="Profile" asp-action="Details">
                     <img src="~/images/profile-icon.svg" alt="Icon" width="40" height="40" />
                 </a>
             </div>
