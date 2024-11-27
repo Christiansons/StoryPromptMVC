@@ -302,7 +302,22 @@ namespace StoryPromptMVC.Controllers
             return View(topPrompts);
         }
 
-      
+
+        [HttpGet]
+        public async Task<IActionResult> GetPromptLikes(int id)
+        {
+            var response = await _client.GetAsync($"{baseAdress}/{id}");
+            if (!response.IsSuccessStatusCode)
+            {
+                return Json(new {ReactionCount = 0});
+            }
+            var json = await response.Content.ReadAsStringAsync();
+            var prompt = JsonConvert.DeserializeObject<PromptByIdVM>(json);
+
+            var ReactionCount = prompt.reactionCount;
+            return Json(new {ReactionCount});
+        }
+
     }
 }
 
