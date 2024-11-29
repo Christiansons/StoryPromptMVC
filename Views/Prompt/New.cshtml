@@ -32,7 +32,7 @@
     <div class="card container-fluid bgContent mt-3 pb-3 pt-3 border-bottom">
         <div class="row">
             <div class="col text-left d-flex">
-                <small class="text-muted">By <a asp-controller="profile" asp-action="index" asp-route-id="@prompt.user.Id"><strong>@prompt.user.UserName </strong></a> |  Post on: @prompt.PromptDateCreated</small>
+                <small class="text-muted">By <a asp-controller="Profile" asp-action="Details" asp-route-userId="@prompt.user.Id"><strong>@prompt.user.UserName </strong></a> |  Post on: @prompt.PromptDateCreated</small>
             </div>
         </div>
         <div class="row">

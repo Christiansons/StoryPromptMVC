@@ -19,6 +19,7 @@ body {
     margin-bottom: 60px;
     background-color: #f8f9fa;
     font-family: Verdana, Sans-serif;
+    font-weight: 400;
 }
 
 .prompt-container {
@@ -55,10 +56,15 @@ body {
 }
 
 .headerbg {
-    background-color: #64ceed;
+    background-image: linear-gradient(#64ceed, #bbe9f7, #e8f8fc, #f8f9fa);
 }
 
 .bgContent {
     background-color: #bff0fe;
 
+}
+
+.footerBg {
+    object-fit: cover;
+    background-image: url('../images/footerbg.png');
 }

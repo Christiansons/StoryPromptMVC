@@ -10,13 +10,15 @@
 <div class="container-fluid bgContent mt-3 pb-3 pt-3 border-bottom">
     <div class="row">
         <div class="col text-center justify-content-center d-flex">
-            <h5 class="text-muted">Prompt by <a asp-controller="profile" asp-action="index" asp-route-id="@Model.Prompt.user.Id"><strong>@Model.Prompt.user.UserName </strong></a> |  Post on: @Model.Prompt.PromptDateCreated</h5>
+
+            <h5 class="text-muted">Prompt by <a asp-controller="Profile" asp-action="Details" asp-route-userId="@Model.Prompt.user.Id"><strong>@Model.Prompt.user.UserName </strong></a> |  Post on: @Model.Prompt.PromptDateCreated</h5>
+
         </div>
     </div>
     <div class="border-light border-bottom"></div>
     <div class="row mt-2">
         <p>
-            @Model.Prompt.PromptContent
+            @Model.Prompt.promptContent
         </p>
     </div>
     <div class="row">
@@ -30,7 +32,7 @@
                        onclick="this.closest('form').submit();"></i>
                 </form>
                 <div class="">
-                    <strong>@Model.Prompt.ReactionCount</strong>
+                    <strong>@Model.Prompt.reactionCount</strong>
                 </div>
                 <form asp-controller="PromptReaction" asp-action="downvote" method="post">
                     <i class="fa-solid fa-thumbs-down m-2 dislike"
@@ -54,7 +56,9 @@
     <div class="col d-flex justify-content-center">
         <div class="d-flex">
             <h3>Check out the stories written for this prompt or... &nbsp;</h3>
-            <a asp-controller="" asp-action="" asp-route-Id="@Model.Prompt.Id">
+
+            <a asp-controller="Story" asp-action="CreateStory" asp-route-Id="@Model.Prompt.Id">
+
                 <button class="btn btn-info">Create your own</button>
             </a>
         </div>
@@ -62,7 +66,7 @@
 </div>
 <div class="justify-content-center d-flex">
     <h4>
-        <small class="text-muted">@Model.Prompt.StoryCount stories  <i class="fa-solid fa-comment"></i></small>
+        <small class="text-muted">@Model.Prompt.storyCount stories  <i class="fa-solid fa-comment"></i></small>
     </h4>
 </div>
 <div class="container-fluid mt-0 border-right border-left">
@@ -71,7 +75,7 @@
         <div class="card container-fluid mt-3 pb-3 pt-3 border-bottom">
             <div class="row">
                 <div class="col text-left d-flex">
-                    <small class="text-muted">By <a asp-controller="profile" asp-action="index" asp-route-id="@story.user.Id"><strong>@story.user.UserName </strong></a> |  Post on: @story.StoryDateCreated</small>
+                    <small class="text-muted">By <a asp-controller="Profile" asp-action="Details" asp-route-userId="@story.user.Id"><strong>@story.user.UserName </strong></a> |  Post on: @story.StoryDateCreated</small>
                 </div>
             </div>
             <div class="row">
